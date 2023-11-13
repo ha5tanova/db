@@ -1,0 +1,43 @@
+create table if not exists car(
+id integer UNIQUE NOT NULL,
+marka text not null,
+numberCar text not null
+);
+
+create table if not exists drivers(
+id serial UNIQUE NOT NULL,
+lastname text not null,
+firstname text not null,
+phone text not null,
+car_id int references car(id)
+);
+
+
+
+create table if not exists users(
+id serial UNIQUE NOT NULL,
+lastname text not null,
+firstname text not null,
+phone text not null,
+payment text not null,
+address text not null
+);
+
+create table if not exists orders(
+id serial UNIQUE NOT null,
+drivers_id int references drivers (id),
+users_id int references users (id),
+createdAt timestamp not null default Now(),
+endAt timestamp not null default Now(),
+status text not null
+);
+ 
+
+create table if not exists address_users(
+id serial UNIQUE NOT NULL ,
+orders_id int references orders (id),
+adress_start text not null,
+adress_end text not null
+);
+
+
